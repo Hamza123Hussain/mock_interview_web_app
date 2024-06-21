@@ -7,6 +7,8 @@ import { Lightbulb, Mic, Volume2, WebcamIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text'
+import { ChatSession } from '@google/generative-ai'
+import { chatSessions } from '@/utils/GemniAiModel'
 const INTERVIEW = ({ params }) => {
   const {
     error,
@@ -48,6 +50,26 @@ const INTERVIEW = ({ params }) => {
   useEffect(() => {
     GetInterviewDetails()
   }, [])
+
+  const SendAnswerForFeedBack = async () => {
+    if (useranswer.length < 10) {
+      alert('RECORD AGAIN. ERROR IN SAVING ANSWER')
+      return
+    }
+
+    const FeedBackPrompt = `Question : ${InterviewDetails[currentIndex]?.question}, User Answer : ${useranswer}. By reading the Question and The Answer of the user, give it a rating and also provide a 3-4 line feedback related to the areas of imporvment. In your response, just give the rating and feedback in JSON format. `
+
+    const Gemni_Response = await chatSessions.sendMessage(FeedBackPrompt)
+
+    console.log(Gemni_Response)
+
+    const MockJsonResponse = Gemni_Response.response
+      .text()
+      .replace('```json', '')
+      .replace('```', '')
+
+    console(MockJsonResponse)
+  }
 
   useEffect(() => {
     results.map((result) =>
