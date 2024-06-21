@@ -108,7 +108,7 @@ const AddInterview = () => {
                           Cancel
                         </Button>
                         <Button
-                          //   onClick={() => GenerateAiText()}
+                          onClick={() => GenerateAiText()}
                           className=" bg-green-400 text-white hover:brightness-105 hover:bg-green-400 border-2 border-slate-100 "
                         >
                           {' '}
