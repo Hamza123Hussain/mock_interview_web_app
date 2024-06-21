@@ -11,22 +11,54 @@ import {
 } from './ui/dialog'
 import { Button } from './ui/button'
 import { chatSessions } from '@/utils/GemniAiModel'
+import { db } from '@/utils/Database_Connection'
+import { MockInterview } from '@/utils/Schema'
+import { useUser } from '@clerk/nextjs'
+import { v4 as uuidv4 } from 'uuid'
+import moment from 'moment'
 
 const AddInterview = () => {
+  const [loading, setloading] = useState(false)
+  const { user } = useUser()
   // const [isopen, setopen] = useState(false)
-
+  const [JsonResponse, SetResponse] = useState([])
   const [InputValues, SetInputValues] = useState({
     Job_Position: '',
     Job_Description: '',
-    Year_Of_Experience: null,
+    Year_Of_Experience: undefined,
   })
 
   const GenerateAiText = async () => {
-    const InputPrompt = `Read the Job Postion:${InputValues.Job_Position}, Job Description: ${InputValues.Job_Description} and The Years of Experience: ${InputValues.Year_Of_Experience}. After Reading this Data, Give Me 5 Interview Questions along with the answers. The Questions and Answers should given in json format only`
+    setloading(true)
+    const InputPrompt = `Read the Job Postion:${InputValues.Job_Position}, Job Description: ${InputValues.Job_Description} and The Years of Experience: ${InputValues.Year_Of_Experience}. After Reading this Data, Give Me 5 Interview Questions along with the answers. The Questions and Answers should given in json format only. Just Give Me The Questions and Answers in Json and No other text.`
 
     const Result = await chatSessions.sendMessage(InputPrompt)
 
-    console.log(Result.response.text())
+    const MockResponse = Result.response
+      .text()
+      .replace('```json', '')
+      .replace('```', '')
+
+    console.log(JSON.parse(MockResponse))
+
+    SetResponse(MockResponse)
+
+    if (MockResponse) {
+      const Response_Of_DB = await db
+        .insert(MockInterview)
+        .values({
+          MockId: uuidv4(),
+          jsonMockResp: MockResponse,
+          JobPosition: InputValues.Job_Position,
+          JobDescription: InputValues.Job_Description,
+          JobExperience: InputValues.Year_Of_Experience,
+          CreatedBy: user?.primaryEmailAddress?.emailAddress,
+          CreatedAt: moment().format('DD-MM-yyyy'),
+        })
+        .returning({ MockId: MockInterview.MockId })
+      console.log('INSERTED ID :', Response_Of_DB)
+    }
+    setloading(false)
   }
 
   const UpdateInput = (name, Value) => {
@@ -111,8 +143,14 @@ const AddInterview = () => {
                           onClick={() => GenerateAiText()}
                           className=" bg-green-400 text-white hover:brightness-105 hover:bg-green-400 border-2 border-slate-100 "
                         >
-                          {' '}
-                          Start Interview
+                          {loading ? (
+                            <div className=" flex items-center gap-2">
+                              <span> Generating Data From AI</span>
+                              <div class="spinner"></div>
+                            </div>
+                          ) : (
+                            'Start Interview'
+                          )}
                         </Button>
                       </div>
                     </div>
