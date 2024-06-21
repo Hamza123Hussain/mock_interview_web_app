@@ -16,12 +16,16 @@ import { MockInterview } from '@/utils/Schema'
 import { useUser } from '@clerk/nextjs'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
+import { useRouter } from 'next/navigation'
 
 const AddInterview = () => {
   const [loading, setloading] = useState(false)
   const { user } = useUser()
   // const [isopen, setopen] = useState(false)
   const [JsonResponse, SetResponse] = useState([])
+
+  const Router = useRouter()
+
   const [InputValues, SetInputValues] = useState({
     Job_Position: '',
     Job_Description: '',
@@ -57,8 +61,10 @@ const AddInterview = () => {
         })
         .returning({ MockId: MockInterview.MockId })
       console.log('INSERTED ID :', Response_Of_DB)
+      setloading(false)
+
+      Router.push(`/Interview/${Response_Of_DB[0]?.MockId}`)
     }
-    setloading(false)
   }
 
   const UpdateInput = (name, Value) => {
