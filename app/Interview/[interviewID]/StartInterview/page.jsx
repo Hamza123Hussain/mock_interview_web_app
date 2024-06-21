@@ -4,12 +4,10 @@ import { db } from '@/utils/Database_Connection'
 import { MockInterview } from '@/utils/Schema'
 import { eq } from 'drizzle-orm'
 import { Lightbulb, WebcamIcon } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 
 const INTERVIEW = ({ params }) => {
-  const Router = useRouter()
   const [webcamEnabled, SetWebcam] = useState(false)
   const [InterviewDetails, SetInterviewDetails] = useState()
   const GetInterviewDetails = async () => {
@@ -19,7 +17,7 @@ const INTERVIEW = ({ params }) => {
       .from(MockInterview)
       .where(eq(MockInterview.MockId, params.interviewID))
 
-    // console.log(Result)
+    console.log('Hania :::::::::', Result)
 
     SetInterviewDetails(Result[0])
   }
@@ -29,20 +27,10 @@ const INTERVIEW = ({ params }) => {
   }, [])
   return (
     <div className=" p-5 ">
-      <strong className=" text-2xl">Let&apos;s Start</strong>
-
       <div className=" grid grid-cols-1 sm:grid-cols-2 justify-center items-center gap-10">
         <div className=" flex flex-col space-y-3 mt-5 ">
           <div className="border-slate-200 p-2 space-y-3 rounded-lg border-2 flex flex-col space-y- ">
-            <strong className=" text-xl">
-              Job Position : {InterviewDetails?.JobPosition}
-            </strong>
-            <strong className=" text-xl">
-              Tech Stack : {InterviewDetails?.JobDescription}
-            </strong>
-            <strong className=" text-xl">
-              Years Of Experience : {InterviewDetails?.JobExperience}
-            </strong>
+            ss
           </div>
 
           <div className=" flex flex-col border-2 space-y-3 border-yellow-300 p-2 bg-yellow-200 rounded-lg">
@@ -82,15 +70,6 @@ const INTERVIEW = ({ params }) => {
             </>
           )}
         </div>
-      </div>
-      <div className=" flex justify-end mt-10">
-        <Button
-          onClick={() => {
-            Router.push(`/Interview/${params.interviewID}/StartInterview`)
-          }}
-        >
-          Start Interview
-        </Button>
       </div>
     </div>
   )

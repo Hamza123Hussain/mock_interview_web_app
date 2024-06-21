@@ -43,7 +43,7 @@ const AddInterview = () => {
       .replace('```json', '')
       .replace('```', '')
 
-    console.log(JSON.parse(MockResponse))
+    // console.log(JSON.parse(MockResponse))
 
     SetResponse(MockResponse)
 
@@ -60,7 +60,7 @@ const AddInterview = () => {
           CreatedAt: moment().format('DD-MM-yyyy'),
         })
         .returning({ MockId: MockInterview.MockId })
-      console.log('INSERTED ID :', Response_Of_DB)
+      //   console.log('INSERTED ID :', Response_Of_DB)
       setloading(false)
 
       Router.push(`/Interview/${Response_Of_DB[0]?.MockId}`)
