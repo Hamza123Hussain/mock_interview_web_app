@@ -23,6 +23,7 @@ const INTERVIEW = ({ params }) => {
   const [currentIndex, SetIndex] = useState(0)
   const [webcamEnabled, SetWebcam] = useState(false)
   const [InterviewDetails, SetInterviewDetails] = useState([])
+  const [seeusertext, setusertext] = useState(false)
   const GetInterviewDetails = async () => {
     console.log(params.interviewID)
     const Result = await db
@@ -162,14 +163,16 @@ const INTERVIEW = ({ params }) => {
           )}
         </div>
       </div>
-      <div>
-        <ul>
-          {results.map((result) => (
-            <li key={result.timestamp}>{result.transcript}</li>
-          ))}
-          {interimResult && <li>{interimResult}</li>}
-        </ul>
-      </div>
+      <div></div>
+      {/* {seeusertext ? (
+        <p className=" mt-5">{useranswer}</p>
+      ) : (
+        <>
+          <Button className=" mt-5" onClick={() => setusertext(true)}>
+            See User Answer
+          </Button>
+        </>
+      )} */}
     </div>
   )
 }
