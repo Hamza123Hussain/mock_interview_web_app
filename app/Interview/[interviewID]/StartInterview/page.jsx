@@ -1,14 +1,14 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { db } from '@/utils/Database_Connection'
-import { MockInterview } from '@/utils/Schema'
+import { Button } from '../../../../components/ui/button'
+import { db } from '../../../../utils/Database_Connection'
+import { MockInterview } from '../../../../utils/Schema'
 import { eq } from 'drizzle-orm'
 import { Lightbulb, Mic, Volume2, WebcamIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text'
 import { ChatSession } from '@google/generative-ai'
-import { chatSessions } from '@/utils/GemniAiModel'
+import { chatSessions } from '../../../../utils/GemniAiModel'
 const INTERVIEW = ({ params }) => {
   const {
     error,

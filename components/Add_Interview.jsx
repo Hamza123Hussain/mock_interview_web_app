@@ -10,9 +10,9 @@ import {
   DialogTrigger,
 } from './ui/dialog'
 import { Button } from './ui/button'
-import { chatSessions } from '@/utils/GemniAiModel'
-import { db } from '@/utils/Database_Connection'
-import { MockInterview } from '@/utils/Schema'
+import { chatSessions } from '../utils/GemniAiModel'
+import { db } from '../utils/Database_Connection'
+import { MockInterview } from '../utils/Schema'
 import { useUser } from '@clerk/nextjs'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
