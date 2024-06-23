@@ -1,6 +1,6 @@
 'use client'
 import { CirclePlus } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog'
+import PrevInterview from './PrevInterview'
 import { Button } from './ui/button'
 import { chatSessions } from '../utils/GemniAiModel'
 import { db } from '../utils/Database_Connection'
@@ -17,11 +18,10 @@ import { useUser } from '@clerk/nextjs'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import { desc, eq } from 'drizzle-orm'
 
 const AddInterview = () => {
   const [loading, setloading] = useState(false)
-  const [loader, setloader] = useState(true)
+
   const { user } = useUser()
   // const [isopen, setopen] = useState(false)
 
@@ -32,8 +32,6 @@ const AddInterview = () => {
     Job_Description: '',
     Year_Of_Experience: undefined,
   })
-
-  const [previnterviewdetails, setdetails] = useState([])
 
   const GenerateAiText = async () => {
     setloading(true)
@@ -72,24 +70,7 @@ const AddInterview = () => {
       [name]: Value,
     }))
   }
-  // console.log(InputValues)
 
-  const GetPreviousInterviews = async () => {
-    const Result = await db.select().from(MockInterview)
-
-    setdetails(Result)
-    setloader(false)
-  }
-
-  useEffect(() => {
-    user && GetPreviousInterviews()
-  }, [user])
-
-  if (previnterviewdetails.length > 1) {
-    console.log(previnterviewdetails)
-  }
-
-  console.log(user?.primaryEmailAddress?.emailAddress)
   return (
     <div>
       <Dialog>
@@ -173,84 +154,7 @@ const AddInterview = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>{' '}
-      {loader ? (
-        <div className=" flex gap-10  justify-center items-center px-10 py-32 ">
-          <div class="spinner2">
-            <div class="loader l1"></div>
-            <div class="loader l2"></div>
-          </div>
-          <div class="spinner2">
-            <div class="loader l1"></div>
-            <div class="loader l2"></div>
-          </div>
-          <div class="spinner2">
-            <div class="loader l1"></div>
-            <div class="loader l2"></div>
-          </div>
-
-          <div class="spinner2">
-            <div class="loader l1"></div>
-            <div class="loader l2"></div>
-          </div>
-        </div>
-      ) : (
-        <>
-          {' '}
-          <div className=" flex flex-col  p-5">
-            <h1 className="  font-bold text-lg">Previous Interviews</h1>{' '}
-            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-5 mt-5">
-              {previnterviewdetails.map((element, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="border-2
-                    border-slate-200
-                    rounded-lg
-                    bg-slate-100 flex flex-col justify-center  "
-                  >
-                    <div className=" text-xs sm:text-sm  ">
-                      <p className=" p-2">
-                        {' '}
-                        Job Positon : {element?.JobPosition}
-                      </p>
-                      <p className=" p-2   text-justify">
-                        Job Description : {element?.JobDescription}
-                      </p>
-                      <p className=" p-2">
-                        Years Of Experience : {element?.JobExperience}
-                      </p>
-                      <p className=" p-2">CreatedBY : {element?.CreatedBy}</p>
-                    </div>{' '}
-                    <div className=" p-2 flex flex-col justify-end sm:flex-row  gap-5">
-                      <Button
-                        onClick={() =>
-                          Router.push(
-                            `/Interview/${element.MockId}/EndInterview`
-                          )
-                        }
-                        className=" bg-white text-blue-300 border-2 border-slate-600"
-                      >
-                        View FeedBack
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          Router.push(
-                            `/Interview/${element.MockId}/StartInterview`
-                          )
-                        }
-                        className=" bg-green-500 hover:brightness-105 hover:bg-green-500 "
-                      >
-                        {' '}
-                        Start Again
-                      </Button>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </>
-      )}
+      <PrevInterview />
     </div>
   )
 }
