@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React from 'react'
-
+import Logo from '../public/WebsiteLogo.svg'
 import Link from 'next/link'
 import { UserButton, useUser } from '@clerk/nextjs'
 import {
@@ -12,45 +12,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from './ui/sheet'
+import { SquareMenu } from 'lucide-react'
 const Header = () => {
   const { isSignedIn, user } = useUser()
   return (
     <div className=" px-3 py-4 shadow-md items-center flex justify-between">
       <div className=" flex gap-2 items-center">
-        <div className=" sm:hidden">
-          <Sheet>
-            <SheetTrigger>burger Icon</SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>
-                  {' '}
-                  <Image
-                    src={'./WebsiteLogo.svg'}
-                    width={100}
-                    height={100}
-                    alt="Logo"
-                  />{' '}
-                </SheetTitle>
-                <SheetDescription>
-                  <ul className=" list-none flex-col  flex   gap-4 font-bold">
-                    <li>DashBoard</li>
-                    <li>Questions</li>
-                    <li>How It Works?</li>
-                  </ul>
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        <Image src={'./WebsiteLogo.svg'} width={100} height={100} alt="Logo" />
+        <Image className=" w-12 sm:w-20  " src={Logo} alt="Logo" />
       </div>
-      <div className=" hidden sm:inline">
-        <ul className=" list-none flex-col sm:flex-row flex justify-center items-center gap-4 font-bold">
-          <li>DashBoard</li>
-          <li>Questions</li>
-          <li>How It Works?</li>
-        </ul>
+      <div className=" ">
+        <div className="   flex justify-center items-center gap-4 font-bold">
+          <p className=" text-xl  sm:text-4xl">MockMaster ProPrep</p>
+        </div>
       </div>
 
       {isSignedIn ? (

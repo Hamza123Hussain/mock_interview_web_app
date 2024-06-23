@@ -12,6 +12,7 @@ import { chatSessions } from '../../../../utils/GemniAiModel'
 import { useUser } from '@clerk/nextjs'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 const INTERVIEW = ({ params }) => {
   const [loading, setloading] = useState(true)
   const Router = useRouter()
@@ -43,8 +44,8 @@ const INTERVIEW = ({ params }) => {
     console.log('', JSON.parse(Result[0].jsonMockResp))
 
     SetInterviewDetails(JSON.parse(Result[0].jsonMockResp))
+    setloading(false)
     if (InterviewDetails.length > 0) {
-      setloading(false)
     }
   }
 
@@ -53,7 +54,7 @@ const INTERVIEW = ({ params }) => {
       const speech = new SpeechSynthesisUtterance(text)
       window.speechSynthesis.speak(speech)
     } else {
-      alert('YOUR BROWSER DOES NOT SUPPORT SPEECH TO TEXT')
+      toast.error('YOUR BROWSER DOES NOT SUPPORT SPEECH TO TEXT')
     }
   }
 
@@ -96,7 +97,7 @@ const INTERVIEW = ({ params }) => {
     })
 
     if (Response) {
-      alert('USER ANSWER HAS BEEN RECORED')
+      toast.success('USER ANSWER HAS BEEN RECORED')
     }
   }
 
@@ -105,6 +106,7 @@ const INTERVIEW = ({ params }) => {
       stopSpeechToText()
     } else {
       startSpeechToText()
+      toast.success('Recording Has Started')
       setuseranswer('')
     }
   }
@@ -259,7 +261,7 @@ const INTERVIEW = ({ params }) => {
                       </div>
                     )}
                   </Button>
-                  {useranswer.length > 10 ? (
+                  {useranswer.length > 10 && !isRecording ? (
                     <Button
                       className=" mt-5 bg-green-500 hover:bg-green-500 hover:brightness-105 rounded-lg"
                       onClick={() => {

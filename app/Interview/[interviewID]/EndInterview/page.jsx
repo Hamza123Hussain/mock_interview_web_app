@@ -27,9 +27,8 @@ const EndInterview = ({ params }) => {
 
     console.log(FeedBackResult)
     setFeedbackData(FeedBackResult)
-
+    setloading(false)
     if (FeedBackResult.length > 0) {
-      setloading(false)
     }
     const totalRating = FeedBackResult.reduce(
       (sum, item) => sum + parseInt(item.rating, 10),
@@ -75,25 +74,29 @@ const EndInterview = ({ params }) => {
                   Congratulations, You have Passed This Interview.
                 </p>
               ) : (
-                <p className=" capitalize p-2 rounded-lg bg-red-700 ">
-                  {' '}
-                  You have Failed This Interview, But do not get de-motivated
-                  and Give Another Try
-                </p>
+                <div className=" capitalize p-2  text-white rounded-lg text-xs sm:text-sm bg-red-500 ">
+                  <p className=" text-center">
+                    {' '}
+                    You have Failed This Interview.
+                  </p>
+                  <p>But do not get de-motivated and Give Another Try</p>
+                </div>
               )}
             </div>
           </div>
-          <div className=" flex flex-col justify-center px-4 py-2  gap-5 items-center">
-            {FeedBackData.map((element) => {
+          <div className=" flex flex-col justify-center p-3  gap-5 items-center">
+            {FeedBackData.map((element, index) => {
               return (
                 <div
                   key={element?.id}
-                  className=" border-2 rounded-lg border-slate-600 p-4 sm:w-[700px]"
+                  className=" border-2 rounded-lg border-slate-600 p-1.5 sm:p-4    sm:w-[700px]"
                 >
                   <Collapsible>
-                    <div className="  text-justify font-bold  sm:text-sm flex  items-center gap-2  ">
-                      {' '}
-                      Question : {element?.Question}
+                    <div className="  flex  items-center   gap-2  ">
+                      <div className=" font-bold  sm:text-sm  text-pretty text-justify sm:text-justify flex flex-col">
+                        <p>Question {index + 1}</p>
+                        <p> {element?.Question}</p>
+                      </div>
                       <CollapsibleTrigger className="">
                         {!isopen ? (
                           <ChevronDown onClick={() => setopen(true)} />
@@ -103,16 +106,21 @@ const EndInterview = ({ params }) => {
                       </CollapsibleTrigger>{' '}
                     </div>
                     <CollapsibleContent>
-                      <div className=" flex flex-col mt-5 gap-5 text-justify">
-                        <p className=" bg-gray-300 rounded-lg p-2">
-                          User Answer : {element?.UserAns}
-                        </p>
-                        <p className=" bg-blue-300 rounded-lg p-2">
-                          FeedBack : {element?.feedback}
-                        </p>
-                        <p className=" bg-green-400 rounded-lg p-2">
-                          Correct Answer : {element?.CorrectAns}
-                        </p>
+                      <div className=" flex flex-col mt-5 gap-2 text-pretty  text-justify">
+                        <div className=" flex flex-col gap-1 bg-gray-300 rounded-lg p-2">
+                          {' '}
+                          <p>User Answer</p>
+                          <p className=" ">{element?.UserAns}</p>
+                        </div>
+                        <div className="  flex flex-col gap-1 bg-blue-300 rounded-lg p-2">
+                          <p>FeedBack</p>
+                          <p>{element?.feedback}</p>
+                        </div>
+                        <div className=" flex flex-col gap-1  bg-green-400 rounded-lg p-2">
+                          <p> Correct Answer</p>
+                          <p>{element?.CorrectAns}</p>
+                        </div>
+
                         <p className=" bg-red-300 rounded-lg p-2">
                           {' '}
                           Rating : {element?.rating}
