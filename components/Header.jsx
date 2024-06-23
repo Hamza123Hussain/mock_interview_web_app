@@ -13,15 +13,25 @@ import {
   SheetTrigger,
 } from './ui/sheet'
 import { SquareMenu } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 const Header = () => {
+  const router = useRouter()
   const { isSignedIn, user } = useUser()
   return (
-    <div className=" px-3 py-4 shadow-md items-center flex justify-between">
+    <div className=" px-3 py-4 shadow-md items-center flex justify-between  cursor-pointer">
       <div className=" flex gap-2 items-center">
-        <Image className=" w-12 sm:w-20  " src={Logo} alt="Logo" />
+        <Image
+          className=" w-12 sm:w-20  "
+          src={Logo}
+          alt="Logo"
+          onClick={() => router.push('/')}
+        />
       </div>
       <div className=" ">
-        <div className="   flex justify-center items-center gap-4 font-bold">
+        <div
+          className="   flex justify-center items-center gap-4 font-bold cursor-pointer"
+          onClick={() => router.push('/')}
+        >
           <p className=" text-xl  sm:text-4xl">MockMaster ProPrep</p>
         </div>
       </div>

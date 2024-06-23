@@ -75,15 +75,7 @@ const AddInterview = () => {
   // console.log(InputValues)
 
   const GetPreviousInterviews = async () => {
-    const Result = await db
-      .select()
-      .from(MockInterview)
-      .where(
-        eq(
-          '70110719@student.uol.edu.pk',
-          user?.primaryEmailAddress?.emailAddress
-        )
-      )
+    const Result = await db.select().from(MockInterview)
 
     setdetails(Result)
     setloader(false)
@@ -227,6 +219,7 @@ const AddInterview = () => {
                       <p className=" p-2">
                         Years Of Experience : {element?.JobExperience}
                       </p>
+                      <p className=" p-2">CreatedBY : {element?.CreatedBy}</p>
                     </div>{' '}
                     <div className=" p-2 flex flex-col justify-end sm:flex-row  gap-5">
                       <Button
