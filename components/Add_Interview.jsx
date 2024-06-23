@@ -226,10 +226,24 @@ const AddInterview = () => {
                       Years Of Experience : {element?.JobExperience}
                     </p>
                     <div className=" p-2 flex  gap-10">
-                      <Button className=" bg-white text-blue-300 border-2 border-slate-600">
+                      <Button
+                        onClick={() =>
+                          Router.push(
+                            `/Interview/${element.MockId}/EndInterview`
+                          )
+                        }
+                        className=" bg-white text-blue-300 border-2 border-slate-600"
+                      >
                         View FeedBack
                       </Button>
-                      <Button className=" bg-green-500 hover:brightness-105 hover:bg-green-500 ">
+                      <Button
+                        onClick={() =>
+                          Router.push(
+                            `/Interview/${element.MockId}/StartInterview`
+                          )
+                        }
+                        className=" bg-green-500 hover:brightness-105 hover:bg-green-500 "
+                      >
                         {' '}
                         Start Again
                       </Button>
