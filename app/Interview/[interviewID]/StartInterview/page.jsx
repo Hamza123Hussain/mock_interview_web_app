@@ -43,8 +43,9 @@ const INTERVIEW = ({ params }) => {
     console.log('', JSON.parse(Result[0].jsonMockResp))
 
     SetInterviewDetails(JSON.parse(Result[0].jsonMockResp))
-
-    setloading(false)
+    if (InterviewDetails.length > 0) {
+      setloading(false)
+    }
   }
 
   const TexttoSpeech = (text) => {
