@@ -7,7 +7,7 @@ import { CircleStop, Lightbulb, Mic, Volume2, WebcamIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text'
-import { ChatSession } from '@google/generative-ai'
+// import { ChatSession } from '@google/generative-ai'
 import { chatSessions } from '../../../../utils/GemniAiModel'
 import { useUser } from '@clerk/nextjs'
 import moment from 'moment'
@@ -68,7 +68,7 @@ const INTERVIEW = ({ params }) => {
       return
     }
 
-    const FeedBackPrompt = `Question : ${InterviewDetails[currentIndex]?.question}, User Answer : ${useranswer}. By reading the Question and The Answer of the user, give it a rating and also provide a 3-4 line feedback related to the areas of imporvment. In your response, just give the rating and feedback in JSON format. `
+    const FeedBackPrompt = `Question : ${InterviewDetails[currentIndex]?.question}, User Answer : ${useranswer}. By reading the Question and The Answer of the user, give it a rating only in numbers from 1 to 10 and also provide a 3-4 line feedback related to the areas of imporvment. In your response, just give the rating and feedback in JSON format. `
 
     const Gemni_Response = await chatSessions.sendMessage(FeedBackPrompt)
 

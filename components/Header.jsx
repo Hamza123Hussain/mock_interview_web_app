@@ -4,15 +4,7 @@ import React from 'react'
 import Logo from '../public/WebsiteLogo.svg'
 import Link from 'next/link'
 import { UserButton, useUser } from '@clerk/nextjs'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from './ui/sheet'
-import { SquareMenu } from 'lucide-react'
+
 import { useRouter } from 'next/navigation'
 const Header = () => {
   const router = useRouter()
@@ -42,7 +34,13 @@ const Header = () => {
           <UserButton />
         </div>
       ) : (
-        <Link href={'./sign-in'}> Lets Get Started</Link>
+        <Link
+          className=" bg-green-300 hidden sm:inline  p-4 rounded-lg"
+          href={'./sign-in'}
+        >
+          {' '}
+          Lets Get Started
+        </Link>
       )}
     </div>
   )
