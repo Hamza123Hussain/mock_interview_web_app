@@ -1,4 +1,8 @@
+'use client'
+import { useRouter } from 'next/navigation'
+
 export default function Home() {
+  const Router = useRouter()
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow container mx-auto p-6 text-gray-800">
@@ -54,7 +58,10 @@ export default function Home() {
             Join MockMaster ProPrep today and take your interview skills to the
             next level!
           </p>
-          <button className="mt-6 px-6 py-3 bg-blue-500 text-white font-bold rounded-full hover:bg-blue-700">
+          <button
+            onClick={() => Router.push('/DashBoard')}
+            className="mt-6 px-6 py-3 bg-blue-500 text-white font-bold rounded-full hover:bg-blue-700"
+          >
             Sign Up Now
           </button>
         </section>
