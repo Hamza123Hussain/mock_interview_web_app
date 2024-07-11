@@ -85,7 +85,7 @@ const EndInterview = ({ params }) => {
           <div className=" flex flex-col justify-center p-3  gap-5 items-center"></div>
           <div className=" flex justify-center items-center mb-4">
             <Button
-              onClick={() => Router.push('/')}
+              onClick={() => Router.push('/DashBoard')}
               className="bg-green-400 rounded-lg p-4"
             >
               GO TO HOME
