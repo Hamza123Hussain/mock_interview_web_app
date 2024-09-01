@@ -1,5 +1,11 @@
+// pages/sign-up.tsx
+'use client'
 import { SignUp } from '@clerk/nextjs'
-
-export default function Page() {
-  return <SignUp path="/sign-up" />
+import { useRouter } from 'next/router'
+export default function SignUpPage() {
+  const router = useRouter()
+  const handleSignUpSuccess = () => {
+    router.push('/dashboard')
+  }
+  return <SignUp path="/sign-up" afterSignUp={handleSignUpSuccess} />
 }
