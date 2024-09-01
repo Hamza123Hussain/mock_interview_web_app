@@ -1,7 +1,7 @@
 // pages/sign-in.tsx
 
 import { SignIn } from '@clerk/nextjs'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
   const router = useRouter()
