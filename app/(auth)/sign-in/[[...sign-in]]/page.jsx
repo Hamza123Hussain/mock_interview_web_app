@@ -1,5 +1,5 @@
 // pages/sign-in.tsx
-
+'use client'
 import { SignIn } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 
