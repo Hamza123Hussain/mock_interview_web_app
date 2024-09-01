@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 export default function SignUpPage() {
   const router = useRouter()
   const handleSignUpSuccess = () => {
-    router.push('/dashboard')
+    router.push('/DashBoard')
   }
   return <SignUp path="/sign-up" afterSignUp={handleSignUpSuccess} />
 }
