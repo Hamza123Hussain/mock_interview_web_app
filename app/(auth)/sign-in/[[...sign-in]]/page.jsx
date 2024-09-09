@@ -7,7 +7,7 @@ export default function SignInPage() {
   const router = useRouter()
 
   const handleSignInSuccess = () => {
-    router.push('/DashBoard')
+    router.push('/')
   }
 
   return <SignIn path="/sign-in" afterSignIn={handleSignInSuccess} />
